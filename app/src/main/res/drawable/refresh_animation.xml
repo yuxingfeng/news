@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/gif_nameplate_1" android:duration="100"/>
+    <item android:drawable="@drawable/gif_nameplate_2" android:duration="100"/>
+    <item android:drawable="@drawable/gif_nameplate_3" android:duration="100"/>
+    <item android:drawable="@drawable/gif_nameplate_4" android:duration="100"/>
+    <item android:drawable="@drawable/gif_nameplate_5" android:duration="100"/>
+    <!--   <item android:drawable="@drawable/gif_nameplate_6" android:duration="100"/>
+     <item android:drawable="@drawable/gif_nameplate_7" android:duration="100"/>
+         <item android:drawable="@drawable/gif_nameplate_8" android:duration="100"/>
+       <item android:drawable="@drawable/gif_nameplate_9" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_10" android:duration="100"/>
+      <item android:drawable="@drawable/gif_nameplate_11" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_12" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_13" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_14" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_15" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_16" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_17" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_18" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_19" android:duration="100"/>
+        <item android:drawable="@drawable/gif_nameplate_20" android:duration="100"/>-->
+
+</animation-list>

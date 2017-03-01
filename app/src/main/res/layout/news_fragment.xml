@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:htext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_news"
+        android:visibility="visible"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextClock
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ListView
+            android:id="@+id/lv"
+            android:dividerHeight="0.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+    </LinearLayout>
+
+    <com.hanks.htextview.HTextView
+        android:visibility="gone"
+        android:id="@+id/h_text_cs"
+        android:gravity="center"
+        android:text="暂时没有数据呢\n点我重试"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:textColor="#000"
+        android:textSize="30sp"
+        htext:animateType="line"
+        htext:fontAsset="fonts/Lato-Black.ttf"/>
+</LinearLayout>

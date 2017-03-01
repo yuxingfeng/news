@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">MyTestAll</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">邮箱</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="error_invalid_email">这个邮件地址是无效的</string>
+    <string name="error_invalid_password">密码太短了</string>
+    <string name="error_incorrect_password">密码不正确</string>
+    <string name="error_field_required">该项为必填项</string>
+    <string name="permission_rationale">"需要提供电子邮件联系人权限"
+    </string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">打开导航抽屉</string>
+    <string name="navigation_drawer_close">关闭导航抽屉</string>
+
+    <string name="action_settings">设置</string>
+    <string name="title_activity_table">TableActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="new_message_notification_title_template">新消息: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="new_message_notification_placeholder_text_template">You said %1$s and lorem ipsum
+        dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
+        semper venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis.
+        Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper
+        ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
+        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
+        tortor.
+    </string>
+
+    <string name="action_share">分享</string>
+    <string name="action_reply">回复</string>
+
+    <string name="new_message1_notification_title_template">New message1: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="new_message1_notification_placeholder_text_template">You said %1$s and lorem ipsum
+        dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
+        semper venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis.
+        Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper
+        ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
+        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
+        tortor.
+    </string>
+
+    <string name="new_message2_notification_title_template">New message2: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="new_message2_notification_placeholder_text_template">You said %1$s and lorem ipsum
+        dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
+        semper venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis.
+        Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper
+        ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
+        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
+        tortor.
+    </string>
+</resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:htext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:orientation="vertical">
+<!--<com.hanks.htextview.HTextView
+    android:id="@+id/item_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#000"
+    android:textColor="#fff"
+    android:textSize="15dp"
+    android:layout_gravity="center_vertical"
+    htext:fontAsset="fonts/PoiretOne-Regular.ttf"
+    />-->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ellipsize="marquee"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true" />
+
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/item_img1"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/item_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:singleLine="true" />
+
+</LinearLayout>
