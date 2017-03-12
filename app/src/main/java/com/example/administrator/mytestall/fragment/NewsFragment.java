@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ import cz.msebera.android.httpclient.Header;
 public class NewsFragment extends Fragment {
     private View view;
     TextClock textClock;
-    ListView listViewCompat;
+    ListViewCompat listViewCompat;
     NewsAdapter adapter;
     List<NewsBean.ResultBean.DataBean> bean;
     Handler handler;
@@ -104,7 +105,7 @@ public class NewsFragment extends Fragment {
     private void initView() {
         ll_news = (LinearLayout) view.findViewById(R.id.ll_news);
         textClock = (TextClock) view.findViewById(R.id.time);
-        listViewCompat = (ListView) view.findViewById(R.id.lv);
+        listViewCompat = (ListViewCompat) view.findViewById(R.id.lv);
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {

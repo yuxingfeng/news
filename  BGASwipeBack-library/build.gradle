@@ -1,0 +1,18 @@
+apply plugin: 'com.android.library'
+
+android {
+
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 25
+    }
+}
+
+dependencies {
+    provided 'com.android.support:support-v4:25.1.0'
+}
+
+// gradle uploadArchives
+//apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/central-publish.gradle'

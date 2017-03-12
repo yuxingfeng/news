@@ -11,26 +11,48 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">false</item>
     </style>
-
+    <!-- 适用于开启滑动返回功能的 Activity -->
+    <style name="AppTheme.Transparent">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="FirstAppTheme" parent="AppTheme.NoActionBar" >
+
+    <style name="FirstAppTheme" parent="AppTheme.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/layout_list_start_pic</item>
-        </style>
+    </style>
+
     <style name="Login_AppTheme" parent="AppTheme.NoActionBar">
         <item name="android:windowNoTitle">true</item>
 
     </style>
-<style name="dialog" parent="AlertDialog.AppCompat">
-    <item name="android:windowFrame">@null</item><!--边框-->
-    <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
-    <item name="android:windowIsTranslucent">false</item><!--半透明-->
-    <item name="android:windowNoTitle">true</item><!--无标题-->
-    <item name="android:windowBackground">@color/dialog</item><!--背景透明-->
-    <item name="android:backgroundDimEnabled">false</item><!--模糊-->
 
-</style>
+    <style name="dialog" parent="AlertDialog.AppCompat">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@color/dialog</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>

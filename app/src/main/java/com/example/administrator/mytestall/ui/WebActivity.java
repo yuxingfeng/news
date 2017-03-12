@@ -23,7 +23,7 @@ import com.example.administrator.mytestall.view.ProgressWebView;
 import java.lang.ref.WeakReference;
 
 
-public class WebActivity extends AppCompatActivity {
+public class WebActivity extends BaseActivity {
     protected ProgressWebView event_wv_context;
     Toolbar toolbar;
     LinearLayout mRootLayout;
@@ -33,7 +33,7 @@ public class WebActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main4);
+        setContentView(R.layout.activity_web);
 
         initView();
         initData();
@@ -56,7 +56,7 @@ public class WebActivity extends AppCompatActivity {
         }
     }
     private void initView() {
-        myRunnable=new MyRunnable(this);
+       myRunnable=new MyRunnable(this);
         mRootLayout= (LinearLayout) findViewById(R.id.mRootLayout);
         toolbar= (Toolbar) findViewById(R.id.toolbar_web);
         toolbar.setNavigationIcon(R.mipmap.ahc);//设置导航栏图标

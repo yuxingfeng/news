@@ -1,1 +1,1 @@
-include ':app', ':library', ':htextview-library', ':alphaview'
+include ':app', ':library', ':htextview-library', ':alphaview', ':SwipeBackLayout-library', ':SweetAlertDialog-library', ':sweet-alert-dialog-library', ': BGASwipeBack-library'

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import com.example.administrator.mytestall.network.NewsData;
 
+import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
+
 /**
  * Created by Administrator on 2016/12/15.
  */
@@ -19,6 +21,8 @@ public class App extends Application {
     public void onCreate()
     {
         super.onCreate();
+        // 必须在 Application 的 onCreate 方法中执行 BGASwipeBackManager.getInstance().init(this) 来初始化滑动返回
+        BGASwipeBackManager.getInstance().init(this);
         mSharedPreferences=getSharedPreferences("MyTestAll", Context.MODE_PRIVATE);
         setValue(VALUE); // 初始化全局变量
         AllNews();

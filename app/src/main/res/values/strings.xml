@@ -13,7 +13,7 @@
     <string name="permission_rationale">"需要提供电子邮件联系人权限"
     </string>
     <string name="title_activity_main">MainActivity</string>
-
+    <string name="key_tracking_mode">key_tracking_mode</string>
     <string name="navigation_drawer_open">打开导航抽屉</string>
     <string name="navigation_drawer_close">关闭导航抽屉</string>
 
@@ -59,4 +59,8 @@
         viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
         tortor.
     </string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

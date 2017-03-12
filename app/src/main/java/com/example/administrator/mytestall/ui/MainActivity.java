@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ListViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -62,29 +63,47 @@ import java.util.TimerTask;
 import cz.msebera.android.httpclient.Header;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-   private ViewPager viewPager;
-    private AlphaView alphaView1;
+    private ViewPager viewPager;
     public static MainActivity instance = null;
-    private int once = 0;
     private int postion = 0;//记录pager的位置
-    private  NewsData data;
-   private App app;
-    AppCompatTextView tv;
+    private NewsData data;
+    private App app;
+    private AppCompatTextView tv;
+    private RecyclerView recyclerView;
+
+    /**
+     * 主界面不需要支持滑动返回，重写该方法永久禁用当前界面的滑动返回功能
+     *
+     * @return
+     */
+    @Override
+    public boolean isSupportSwipeBack() {
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        app= (App) getApplication();
+        app = (App) getApplication();
         instance = this;
+        recyclerView = (RecyclerView) findViewById(R.id.rv);
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"ok",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("国内");
         setSupportActionBar(toolbar);
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        data=new NewsData(app);
+        data = new NewsData(app);
 
 
         //底部导航
@@ -101,8 +120,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int position) {
                 postion = position;
-                switch (position)
-                {
+                switch (position) {
                     case 0:
                         toolbar.setTitle("国内");
                         break;
@@ -114,7 +132,7 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case 3:
                         toolbar.setTitle("科技");
-                    break;
+                        break;
 
                 }
             }
@@ -125,7 +143,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        tv= (AppCompatTextView) findViewById(R.id.bt);
+        tv = (AppCompatTextView) findViewById(R.id.bt);
 
 
         final Animation operatingAnim = AnimationUtils.loadAnimation(this, R.anim.imageview);
@@ -160,7 +178,7 @@ public class MainActivity extends AppCompatActivity
                         };
                         Timer  timer = new Timer(true);
                         timer.schedule(task,2000); //延时1000ms后执行，1000ms执行一次*/
-                        data.News("top",fab,operatingAnim);
+                        data.News("top", fab, operatingAnim);
 
                         Toast.makeText(MainActivity.this, postion + "", Toast.LENGTH_SHORT).show();
                         break;
@@ -249,7 +267,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            startActivity(new Intent(MainActivity.this,FullscreenActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -270,6 +288,7 @@ public class MainActivity extends AppCompatActivity
     private class MainAdapter extends FragmentPagerAdapter {
 
         private List<Fragment> fragments = new ArrayList<>();
+
         public MainAdapter(FragmentManager fm) {
             super(fm);
             fragments.add(new NewsFragment1());

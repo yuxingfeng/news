@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ BGASwipeBack-library/ BGASwipeBack-library.iml" filepath="$PROJECT_DIR$/ BGASwipeBack-library/ BGASwipeBack-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyTestAll.iml" filepath="$PROJECT_DIR$/MyTestAll.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SweetAlertDialog-library/SweetAlertDialog-library.iml" filepath="$PROJECT_DIR$/SweetAlertDialog-library/SweetAlertDialog-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwipeBackLayout-library/SwipeBackLayout-library.iml" filepath="$PROJECT_DIR$/SwipeBackLayout-library/SwipeBackLayout-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/alphaview/alphaview.iml" filepath="$PROJECT_DIR$/alphaview/alphaview.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/htextview-library/htextview-library.iml" filepath="$PROJECT_DIR$/htextview-library/htextview-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sweet-alert-dialog-library/sweet-alert-dialog-library.iml" filepath="$PROJECT_DIR$/sweet-alert-dialog-library/sweet-alert-dialog-library.iml" />
     </modules>
   </component>
 </project>

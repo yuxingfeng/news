@@ -39,9 +39,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/Login_AppTheme"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.Main2Activity" />
-        <activity android:name=".ui.Main3Activity" />
-        <activity android:name=".ui.WebActivity" />
+        <activity android:name=".ui.WebActivity" android:theme="@style/AppTheme.Transparent" />
+        <activity android:name=".ui.BaseActivity" />
+        <activity
+            android:name=".ui.FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>
