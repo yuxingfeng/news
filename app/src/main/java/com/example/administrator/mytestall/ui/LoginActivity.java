@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.example.administrator.mytestall.App;
 import com.example.administrator.mytestall.R;
 
 import java.util.ArrayList;
@@ -145,8 +146,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         vv.stopPlayback();
+        App.getRefWatcher().watch(this);
+
     }
 
     @Override
@@ -415,5 +417,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         from_activity.overridePendingTransition(R.anim.apha_in, R.anim.apha_out);
         from_activity.finish();
     }
+
 }
 

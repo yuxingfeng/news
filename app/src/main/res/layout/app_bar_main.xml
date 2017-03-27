@@ -18,9 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/bt"
+                android:id="@+id/toolbar_tv"
+                android:textSize="25dp"
+                android:text="今日资讯"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

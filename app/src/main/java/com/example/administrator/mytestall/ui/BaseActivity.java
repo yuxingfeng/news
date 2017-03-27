@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.administrator.mytestall.App;
 import com.example.administrator.mytestall.R;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
@@ -84,6 +85,11 @@ public class BaseActivity extends AppCompatActivity implements BGASwipeBackHelpe
     @Override
     public void onBackPressed() {
         mSwipeBackHelper.backward();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.getRefWatcher().watch(this);
     }
 
 }

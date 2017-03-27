@@ -2,6 +2,8 @@ package com.example.administrator.mytestall.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.administrator.mytestall.App;
 import com.example.administrator.mytestall.R;
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -22,5 +24,10 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         }.start();
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.getRefWatcher().watch(this);
     }
 }

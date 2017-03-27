@@ -17,6 +17,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
+import com.example.administrator.mytestall.App;
 import com.example.administrator.mytestall.R;
 import com.example.administrator.mytestall.view.ProgressWebView;
 
@@ -149,5 +150,10 @@ public class WebActivity extends BaseActivity {
     public void onBackPressed() {
         Animator animator = createRevealAnimator(true, mRootLayout.getWidth()/2, mRootLayout.getHeight()/2);
         animator.start();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.getRefWatcher().watch(this);
     }
 }

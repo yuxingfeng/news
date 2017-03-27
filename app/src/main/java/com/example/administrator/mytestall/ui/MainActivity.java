@@ -17,6 +17,7 @@ import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,49 +30,54 @@ import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextClock;
 import android.widget.Toast;
 
-import com.example.administrator.mytestall.Adapter.NewsAdapter;
+
+
 import com.example.administrator.mytestall.App;
-import com.example.administrator.mytestall.Bean.NewsBean;
+
 import com.example.administrator.mytestall.R;
 import com.example.administrator.mytestall.fragment.NewsFragment;
 import com.example.administrator.mytestall.fragment.NewsFragment1;
 import com.example.administrator.mytestall.fragment.NewsFragment2;
 import com.example.administrator.mytestall.fragment.NewsFragment3;
-import com.example.administrator.mytestall.fragment.TextFragment;
-import com.example.administrator.mytestall.network.NewsClient;
+
+import com.example.administrator.mytestall.loader.GlideImageLoader;
 import com.example.administrator.mytestall.network.NewsData;
-import com.example.administrator.mytestall.unitls.ParseUnitls;
-import com.hanks.htextview.HTextView;
-import com.hanks.htextview.HTextViewType;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+
 import com.lzy.widget.AlphaIndicator;
-import com.lzy.widget.AlphaView;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import cz.msebera.android.httpclient.Header;
 
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,OnBannerListener {
+    static final int REFRESH_COMPLETE = 0X1112;
     private ViewPager viewPager;
     public static MainActivity instance = null;
     private int postion = 0;//记录pager的位置
     private NewsData data;
     private App app;
     private AppCompatTextView tv;
-    private RecyclerView recyclerView;
+    Banner banner;
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case REFRESH_COMPLETE:
+                    String[] urls = getResources().getStringArray(R.array.url4);
+                    List list = Arrays.asList(urls);
+                    List arrayList = new ArrayList(list);
+                    banner.update(arrayList);
+                    break;
+            }
+        }
+    };
 
     /**
      * 主界面不需要支持滑动返回，重写该方法永久禁用当前界面的滑动返回功能
@@ -89,19 +95,22 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         app = (App) getApplication();
         instance = this;
-        recyclerView = (RecyclerView) findViewById(R.id.rv);
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"ok",Toast.LENGTH_SHORT).show();
 
-            }
-        });
+        banner= (Banner) findViewById(R.id.banner);
+        banner.setDelayTime(3000);
+        //简单使用
+        banner.setImages(App.images)
+                .setBannerTitles(App.titles)
+                .setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE)
+                .setImageLoader(new GlideImageLoader())
+                .setOnBannerListener(MainActivity.this)
+                .start();
+
+
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("国内");
         setSupportActionBar(toolbar);
-
+        toolbar.setTitle("今日资讯");
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         data = new NewsData(app);
 
@@ -143,7 +152,7 @@ public class MainActivity extends BaseActivity
             }
         });
 
-        tv = (AppCompatTextView) findViewById(R.id.bt);
+        tv = (AppCompatTextView) findViewById(R.id.toolbar_tv);
 
 
         final Animation operatingAnim = AnimationUtils.loadAnimation(this, R.anim.imageview);
@@ -205,6 +214,26 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+    @Override
+    public void OnBannerClick(int position) {
+        Toast.makeText(getApplicationContext(),"你点击了："+position,Toast.LENGTH_SHORT).show();
+    }
+
+
+    //如果你需要考虑更好的体验，可以这么操作
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //开始轮播
+        banner.startAutoPlay();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //结束轮播
+        banner.stopAutoPlay();
     }
 
     @Override
@@ -281,6 +310,12 @@ public class MainActivity extends BaseActivity
         activity.finish();
 
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.getRefWatcher().watch(this);
+    }
+
 
     /**
      * 底部菜单

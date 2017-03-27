@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 
 import com.example.administrator.mytestall.Bean.NewsBean;
+import com.example.administrator.mytestall.ListenerUnitl.NoDoubleClickListener;
 import com.example.administrator.mytestall.R;
 import com.example.administrator.mytestall.ui.WebActivity;
 import com.hanks.htextview.HTextView;
@@ -75,14 +76,16 @@ public class NewsAdapter extends BaseAdapter {
 
         viewHolder.item_time.setText(bean.get(position).getDate());
         Picasso.with(context).load(bean.get(position).getThumbnail_pic_s()).into(viewHolder.item_img1);
-        viewHolder.ll.setOnClickListener(new View.OnClickListener() {
+        viewHolder.ll.setOnClickListener(new NoDoubleClickListener() {
+
             @Override
-            public void onClick(View v) {
+            protected void onNoDoubleClick(View v) {
                 Intent intent=new Intent(context, WebActivity.class);
                 intent.putExtra("url",bean.get(position).getUrl());
                 context.startActivity(intent);
             }
         });
+
         return view;
     }
 
