@@ -1,23 +1,24 @@
 package com.example.administrator.mytestall.ui;
 
-import android.app.Dialog;
+
+import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
+
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
+
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.AppCompatImageView;
+
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.ListViewCompat;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -42,42 +43,27 @@ import com.example.administrator.mytestall.fragment.NewsFragment1;
 import com.example.administrator.mytestall.fragment.NewsFragment2;
 import com.example.administrator.mytestall.fragment.NewsFragment3;
 
-import com.example.administrator.mytestall.loader.GlideImageLoader;
 import com.example.administrator.mytestall.network.NewsData;
 
+import com.example.administrator.mytestall.notification.CookieBars;
 import com.lzy.widget.AlphaIndicator;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
-
+import com.liuguangqiang.cookie.CookieBar;
+import com.liuguangqiang.cookie.OnActionClickListener;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener,OnBannerListener {
-    static final int REFRESH_COMPLETE = 0X1112;
+        implements NavigationView.OnNavigationItemSelectedListener {
+
     private ViewPager viewPager;
     public static MainActivity instance = null;
     private int postion = 0;//记录pager的位置
     private NewsData data;
     private App app;
-    private AppCompatTextView tv;
-    Banner banner;
-    private Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            switch (msg.what) {
-                case REFRESH_COMPLETE:
-                    String[] urls = getResources().getStringArray(R.array.url4);
-                    List list = Arrays.asList(urls);
-                    List arrayList = new ArrayList(list);
-                    banner.update(arrayList);
-                    break;
-            }
-        }
-    };
+
 
     /**
      * 主界面不需要支持滑动返回，重写该方法永久禁用当前界面的滑动返回功能
@@ -95,23 +81,20 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         app = (App) getApplication();
         instance = this;
+        initViews();
 
-        banner= (Banner) findViewById(R.id.banner);
-        banner.setDelayTime(3000);
-        //简单使用
-        banner.setImages(App.images)
-                .setBannerTitles(App.titles)
-                .setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE)
-                .setImageLoader(new GlideImageLoader())
-                .setOnBannerListener(MainActivity.this)
-                .start();
+    }
 
-
-
+    public void initViews(){
+        //悬浮按钮
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        //toolbar
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("今日资讯");
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //
         data = new NewsData(app);
 
 
@@ -152,59 +135,60 @@ public class MainActivity extends BaseActivity
             }
         });
 
-        tv = (AppCompatTextView) findViewById(R.id.toolbar_tv);
-
 
         final Animation operatingAnim = AnimationUtils.loadAnimation(this, R.anim.imageview);
         LinearInterpolator lin = new LinearInterpolator();
         operatingAnim.setInterpolator(lin);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setVisibility(View.GONE);
+        /*fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-                // startActivityForResult(new Intent(MainActivity.this,Main2Activity.class),3);
-               /* if (operatingAnim != null) {
-                    if (once == 0) {
-                        fab.startAnimation(operatingAnim);
-                        once = 1;
-                    } else
-
-                    {
-                        fab.clearAnimation();
-                        once = 0;
-                    }
-
-                }*/
                 switch (postion) {
                     case 0:
-                        /*tv.setText("更新成功");
-                        TimerTask task = new TimerTask(){
-                            public void run() {
-                                tv.setText("国内新闻");
-
+                        new CookieBars(MainActivity.this,5000, R.string.cookie_title, R.mipmap.ic_launcher,
+                                R.string.cookie_message, Gravity.TOP, R.string.cookie_action, new OnActionClickListener() {
+                            @Override
+                            public void onClick() {
+                                Toast.makeText(getApplicationContext(), "点击后，我更帅了!", Toast.LENGTH_LONG).show();
                             }
-                        };
-                        Timer  timer = new Timer(true);
-                        timer.schedule(task,2000); //延时1000ms后执行，1000ms执行一次*/
-                        data.News("top", fab, operatingAnim);
+                        });
 
-                        Toast.makeText(MainActivity.this, postion + "", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        Toast.makeText(MainActivity.this, postion + "", Toast.LENGTH_SHORT).show();
+                        new CookieBar.Builder(MainActivity.this)
+                                .setMessage(R.string.cookie_message)
+                                .setDuration(10000)
+                                .setActionWithIcon(R.mipmap.ic_action_close, new OnActionClickListener() {
+                                    @Override
+                                    public void onClick() {
+                                        Toast.makeText(getApplicationContext(), "点击后，我更帅了!", Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                                .show();
                         break;
                     case 2:
-                        Toast.makeText(MainActivity.this, postion + "", Toast.LENGTH_SHORT).show();
+                        new CookieBars(MainActivity.this, R.string.cookie_title, R.string.cookie_message, 3000, R.color.blued,
+                                R.color.white, R.color.card, R.string.cookie_action,
+                                new OnActionClickListener() {
+                                    @Override
+                                    public void onClick() {
+                                        Toast.makeText(MainActivity.this,"成功",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                        );
+
                         break;
                     case 3:
-                        Toast.makeText(MainActivity.this, postion + "", Toast.LENGTH_SHORT).show();
+                        new CookieBar.Builder(MainActivity.this)
+                                .setTitle(R.string.cookie_title)
+                                .setMessage(R.string.cookie_message)
+                                .show();
                         break;
                 }
 
 
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -212,29 +196,10 @@ public class MainActivity extends BaseActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-    @Override
-    public void OnBannerClick(int position) {
-        Toast.makeText(getApplicationContext(),"你点击了："+position,Toast.LENGTH_SHORT).show();
+
     }
 
 
-    //如果你需要考虑更好的体验，可以这么操作
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //开始轮播
-        banner.startAutoPlay();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //结束轮播
-        banner.stopAutoPlay();
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -292,11 +257,24 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
+            new CookieBars(MainActivity.this,5000, R.string.cookie_title, R.drawable.icon,
+                    R.string.cookie_message, Gravity.BOTTOM, R.string.cookie_action, new OnActionClickListener() {
+                @Override
+                public void onClick() {
+                 /*   App.getInstance().getmCache().remove("top");
+                    App.getInstance().getmCache().remove("guonei");
+                    App.getInstance().getmCache().remove("guoji");
+                    App.getInstance().getmCache().remove("keji");*/
+                    App.getInstance().getmCache().remove("time");
+                    Toast.makeText(getApplicationContext(), "清除成功", Toast.LENGTH_LONG).show();
+                }
+            });
+
+
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-            startActivity(new Intent(MainActivity.this,FullscreenActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -372,4 +350,5 @@ public class MainActivity extends BaseActivity
         home.addCategory(Intent.CATEGORY_HOME);
         startActivity(home);
     }
+
 }

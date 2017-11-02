@@ -1,0 +1,29 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml:2:1-7:12
+INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml:2:1-7:12
+INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml:2:1-7:12
+	package
+		ADDED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml:3:5-37
+		INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+		INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml:5:22-64
+uses-sdk
+INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+		ADDED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+		INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+		ADDED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml
+		INJECTED from D:\github\MyTestAll\library\src\main\AndroidManifest.xml

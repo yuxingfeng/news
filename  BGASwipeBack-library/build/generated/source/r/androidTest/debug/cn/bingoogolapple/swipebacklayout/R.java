@@ -8,17 +8,17 @@ package cn.bingoogolapple.swipebacklayout;
 
 public final class R {
     public static final class anim {
-        public static final int bga_sbl_activity_backward_enter = 0x7f030000;
-        public static final int bga_sbl_activity_backward_exit = 0x7f030001;
-        public static final int bga_sbl_activity_forward_enter = 0x7f030002;
-        public static final int bga_sbl_activity_forward_exit = 0x7f030003;
-        public static final int bga_sbl_activity_swipeback_enter = 0x7f030004;
-        public static final int bga_sbl_activity_swipeback_exit = 0x7f030005;
+        public static final int bga_sbl_activity_backward_enter = 0x7f010000;
+        public static final int bga_sbl_activity_backward_exit = 0x7f010001;
+        public static final int bga_sbl_activity_forward_enter = 0x7f010002;
+        public static final int bga_sbl_activity_forward_exit = 0x7f010003;
+        public static final int bga_sbl_activity_swipeback_enter = 0x7f010004;
+        public static final int bga_sbl_activity_swipeback_exit = 0x7f010005;
     }
     public static final class drawable {
         public static final int bga_sbl_shadow = 0x7f020000;
     }
     public static final class integer {
-        public static final int bga_sbl_anim_duration = 0x7f040000;
+        public static final int bga_sbl_anim_duration = 0x7f030000;
     }
 }

@@ -1,21 +1,39 @@
 package com.example.administrator.mytestall.ui;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.LinearLayout;
 
 import com.example.administrator.mytestall.App;
 import com.example.administrator.mytestall.R;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
+
+import java.lang.ref.WeakReference;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends BaseActivity {
+
+    WebView event_wv_context;
+    ActionBar toolbar;
+    LinearLayout mRootLayout;
+    FullscreenActivity.MyRunnable myRunnable;
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -86,6 +104,7 @@ public class FullscreenActivity extends BaseActivity {
         }
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,11 +113,11 @@ public class FullscreenActivity extends BaseActivity {
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
+        //mContentView = findViewById(R.id.fullscreen_content);
 
 
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
+        mRootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggle();
@@ -109,6 +128,9 @@ public class FullscreenActivity extends BaseActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        initView();
+        initData();
     }
 
     @Override
@@ -167,5 +189,118 @@ public class FullscreenActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         App.getRefWatcher().watch(this);
+    }
+    static class MyRunnable implements Runnable{
+        private WeakReference<FullscreenActivity> weakActivity;
+        public MyRunnable(FullscreenActivity activity) {
+            weakActivity = new WeakReference<FullscreenActivity>(activity);
+        }
+
+        @Override
+        public void run() {
+            FullscreenActivity activity = weakActivity.get();
+            if (null != activity) {
+                activity.mRootLayout.setVisibility(View.VISIBLE);
+                Animator animator = activity.createRevealAnimator(false, 0, 0);
+                animator.start();
+            }
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void initView() {
+        myRunnable=new FullscreenActivity.MyRunnable(this);
+        mRootLayout= (LinearLayout) findViewById(R.id.mRootLayout_full);
+        toolbar= getSupportActionBar();
+        toolbar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("正在加载...");
+        event_wv_context = (WebView) findViewById(R.id.wb_full);
+        mRootLayout.post(myRunnable);
+    }
+
+    private void initData() {
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String url= intent.getStringExtra("url");
+            Log.e("url",url);
+            event_wv_context.loadUrl(url);
+            event_wv_context.getSettings().setJavaScriptEnabled(true);
+            event_wv_context.getSettings().setSupportZoom(true);
+            event_wv_context.getSettings().setBuiltInZoomControls(true);
+            event_wv_context.getSettings().setDisplayZoomControls(true);//显示或隐藏Zoom缩放按钮
+        } else {
+            this.finish();
+        }
+
+        //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
+
+    /*    event_wv_context.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return true;
+            }
+        });*/
+        event_wv_context.setWebViewClient(new com.tencent.smtt.sdk.WebViewClient(){
+            /**
+             * 防止加载网页时调起系统浏览器
+             */
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        event_wv_context.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                toolbar.setTitle(title);//a textview
+            }
+        });
+
+    }
+    /**
+     * 揭露动画
+     */
+    private Animator createRevealAnimator(boolean exit, int x, int y) {
+        float hypot = (float) Math.hypot(mRootLayout.getHeight(),mRootLayout.getWidth());
+        float startRadius = exit ? hypot : 0;
+        float endRadius = exit ? 0 : hypot;
+
+        Animator animator = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            animator = ViewAnimationUtils.createCircularReveal(mRootLayout,x,y,startRadius,endRadius);
+        }
+        animator.setDuration(800);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        if (exit){
+            animator.addListener(animatorListenerExit);
+        }
+        return animator;
+    }
+    private Animator.AnimatorListener animatorListenerExit = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animation) {
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            //动画结束时，销毁当前Activity
+            mRootLayout.setVisibility(View.INVISIBLE);//在finish()的时候会闪屏的现象，先不可见，再销毁就不会闪屏了
+            finish();
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+        }
+    };
+    public void onBackPressed() {
+        Animator animator = createRevealAnimator(true, mRootLayout.getWidth()/2, mRootLayout.getHeight()/2);
+        animator.start();
     }
 }

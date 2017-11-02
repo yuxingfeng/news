@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_bga_sbl_activity_forward_enter.xml.flat",
+        "source": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\bundles\\debug\\res\\anim\\bga_sbl_activity_forward_enter.xml"
+    },
+    {
+        "merged": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_bga_sbl_activity_swipeback_enter.xml.flat",
+        "source": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\bundles\\debug\\res\\anim\\bga_sbl_activity_swipeback_enter.xml"
+    },
+    {
+        "merged": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_bga_sbl_activity_swipeback_exit.xml.flat",
+        "source": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\bundles\\debug\\res\\anim\\bga_sbl_activity_swipeback_exit.xml"
+    },
+    {
+        "merged": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_bga_sbl_shadow.9.png.flat",
+        "source": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\bundles\\debug\\res\\drawable\\bga_sbl_shadow.9.png"
+    },
+    {
+        "merged": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_bga_sbl_activity_backward_enter.xml.flat",
+        "source": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\bundles\\debug\\res\\anim\\bga_sbl_activity_backward_enter.xml"
+    },
+    {
+        "merged": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_bga_sbl_activity_forward_exit.xml.flat",
+        "source": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\bundles\\debug\\res\\anim\\bga_sbl_activity_forward_exit.xml"
+    },
+    {
+        "merged": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_bga_sbl_activity_backward_exit.xml.flat",
+        "source": "D:\\github\\MyTestAll\\ BGASwipeBack-library\\build\\intermediates\\bundles\\debug\\res\\anim\\bga_sbl_activity_backward_exit.xml"
+    }
+]

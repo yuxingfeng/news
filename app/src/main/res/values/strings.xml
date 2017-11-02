@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">MyTestAll</string>
-
+    <string name="bg_">--------</string>
+    <string name="bg_text">我是有底线的</string>
+    <string name="app_name">今日资讯</string>
+    <string name="cookie_title">今日资讯</string>
+    <string name="cookie_message">确定清除缓存吗？</string>
+    <string name="cookie_action">确定</string>
     <!-- Strings related to login -->
     <string name="prompt_email">邮箱</string>
     <string name="prompt_password">密码</string>
@@ -63,4 +67,8 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

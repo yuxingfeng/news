@@ -10,14 +10,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/ BGASwipeBack-library" />
-            <option value="$PROJECT_DIR$/SweetAlertDialog-library" />
-            <option value="$PROJECT_DIR$/SwipeBackLayout-library" />
+            <option value="$PROJECT_DIR$/CookieBar-library" />
             <option value="$PROJECT_DIR$/alphaview" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/banner" />
+            <option value="$PROJECT_DIR$/convenientbanner" />
             <option value="$PROJECT_DIR$/htextview-library" />
             <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/sweet-alert-dialog-library" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

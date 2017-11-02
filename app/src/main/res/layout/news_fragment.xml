@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gyf="http://schemas.android.com/tools"
     android:orientation="vertical"
     xmlns:htext="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="#fff2f4"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ll_news"
-        android:visibility="visible"
-        android:orientation="vertical"
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        gyf:tr_head_height="100dp"
+        gyf:tr_wave_height="180dp">
 
         <!-- android:dividerHeight="0.5dp"-->
         <android.support.v7.widget.ListViewCompat
@@ -19,7 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.ListViewCompat>
-    </LinearLayout>
+       <!-- <android.support.v7.widget.RecyclerView
+            android:id="@+id/lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />-->
+   </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
     <com.hanks.htextview.HTextView
         android:visibility="gone"

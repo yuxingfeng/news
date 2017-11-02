@@ -11,6 +11,7 @@ import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextClock;
@@ -21,6 +22,8 @@ import com.example.administrator.mytestall.App;
 import com.example.administrator.mytestall.Bean.NewsBean;
 import com.example.administrator.mytestall.R;
 import com.example.administrator.mytestall.unitls.ParseUnitls;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +39,9 @@ public class NewsFragment3 extends Fragment {
     NewsAdapter adapter;
     List<NewsBean.ResultBean.DataBean> bean;
     Handler handler;
-    Dialog dialog;
-    View dialog_view;
-    LinearLayout ll_news;
+    LinearLayout ll_news,bg_bg;
     App app;
-
+    private TwinklingRefreshLayout refreshLayout;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class NewsFragment3 extends Fragment {
         dialog_view=null;*/
         try {
             bean.clear();
-            bean.addAll(ParseUnitls.News(app.getmSharedPreferences("keji")).getResult().getData());
+            bean.addAll(ParseUnitls.News(app.mCache.getAsString("keji")).getResult().getData());
             handler.sendEmptyMessage(1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,21 +82,35 @@ public class NewsFragment3 extends Fragment {
     }
 
     private void initData() {
-       /* if (dialog_view == null)
-            dialog_view = View.inflate(getContext(), R.layout.dialog_refresh, null);
-        if (dialog == null)
-            dialog = new Dialog(getContext(), R.style.dialog);
-        final AnimationDrawable animationDrawable = (AnimationDrawable) dialog_view.findViewById(R.id.img).getBackground();
-        animationDrawable.start();
-        dialog.setContentView(dialog_view);
-        dialog.setCanceledOnTouchOutside(false);*/
+        listViewCompat.setAdapter(null);
+        listViewCompat.addFooterView(bg_bg);
         bean = new ArrayList<NewsBean.ResultBean.DataBean>();
         adapter = new NewsAdapter(bean, getContext());
         listViewCompat.setAdapter(adapter);
     }
 
     private void initView() {
-        ll_news = (LinearLayout) view.findViewById(R.id.ll_news);
+        refreshLayout= (TwinklingRefreshLayout) view.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                new Handler().postDelayed(() -> {
+                    refreshLayout.finishRefreshing();
+                    app.getData().News("keji");
+                    netWork();
+                },2000);
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                new Handler().postDelayed(() -> refreshLayout.finishLoadmore(),2000);
+            }
+        });
+        View bgView = LayoutInflater.from(getContext()).inflate(R.layout.bg, null);
+        bg_bg= (LinearLayout) bgView.findViewById(R.id.bg_bg);
+        bg_bg.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, App.H / 30));
         textClock = (TextClock) view.findViewById(R.id.time);
         listViewCompat = (ListViewCompat) view.findViewById(R.id.lv);
         handler = new Handler() {
@@ -110,5 +125,10 @@ public class NewsFragment3 extends Fragment {
             }
         };
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
 
+        listViewCompat.removeFooterView(bg_bg);
+    }
 }

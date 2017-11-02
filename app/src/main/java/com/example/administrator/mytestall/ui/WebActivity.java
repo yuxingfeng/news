@@ -2,7 +2,8 @@ package com.example.administrator.mytestall.ui;
 
 import android.animation.Animator;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.os.Bundle;
 
 import android.support.v7.widget.Toolbar;
@@ -12,23 +13,25 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import com.example.administrator.mytestall.App;
 import com.example.administrator.mytestall.R;
-import com.example.administrator.mytestall.view.ProgressWebView;
+
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
 
 import java.lang.ref.WeakReference;
 
 
 public class WebActivity extends BaseActivity {
-    protected ProgressWebView event_wv_context;
+   WebView event_wv_context;
     Toolbar toolbar;
     LinearLayout mRootLayout;
     MyRunnable myRunnable;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -46,6 +49,8 @@ public class WebActivity extends BaseActivity {
             weakActivity = new WeakReference<WebActivity>(activity);
         }
 
+
+
         @Override
         public void run() {
             WebActivity activity = weakActivity.get();
@@ -56,19 +61,15 @@ public class WebActivity extends BaseActivity {
             }
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
        myRunnable=new MyRunnable(this);
         mRootLayout= (LinearLayout) findViewById(R.id.mRootLayout);
         toolbar= (Toolbar) findViewById(R.id.toolbar_web);
         toolbar.setNavigationIcon(R.mipmap.ahc);//设置导航栏图标
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WebActivity.this.finish();
-            }
-        });
         toolbar.setTitle("正在加载...");
-        event_wv_context = (ProgressWebView) findViewById(R.id.wb);
+        toolbar.setTitleTextColor(getColor(R.color.white));
+        event_wv_context = (WebView) findViewById(R.id.wb);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(view->onBackPressed());
@@ -76,6 +77,13 @@ public class WebActivity extends BaseActivity {
     }
 
     private void initData() {
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebActivity.this.finish();
+            }
+        });
         Intent intent = getIntent();
         if (intent != null) {
            String url= intent.getStringExtra("url");
@@ -90,7 +98,8 @@ public class WebActivity extends BaseActivity {
         }
 
         //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
-        event_wv_context.setWebViewClient(new WebViewClient() {
+
+    /*    event_wv_context.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // TODO Auto-generated method stub
@@ -98,8 +107,16 @@ public class WebActivity extends BaseActivity {
                 view.loadUrl(url);
                 return true;
             }
+        });*/
+        event_wv_context.setWebViewClient(new com.tencent.smtt.sdk.WebViewClient(){
+            /**
+             * 防止加载网页时调起系统浏览器
+             */
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
         });
-
         event_wv_context.setWebChromeClient(new WebChromeClient(){
             @Override
             public void onReceivedTitle(WebView view, String title) {

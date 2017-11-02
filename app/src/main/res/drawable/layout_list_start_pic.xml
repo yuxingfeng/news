@@ -16,7 +16,7 @@
     <item android:bottom="10dp">
         <bitmap
             android:gravity="bottom|center_horizontal"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/icon" />
     </item>
 
 </layer-list>

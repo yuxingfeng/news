@@ -12,6 +12,7 @@ import android.support.v7.widget.ListViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextClock;
@@ -24,6 +25,8 @@ import com.example.administrator.mytestall.R;
 import com.example.administrator.mytestall.network.NewsClient;
 import com.example.administrator.mytestall.unitls.ParseUnitls;
 import com.hanks.htextview.HTextView;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -44,11 +47,9 @@ public class NewsFragment extends Fragment {
     NewsAdapter adapter;
     List<NewsBean.ResultBean.DataBean> bean;
     Handler handler;
-    Dialog dialog;
-    View dialog_view;
-    LinearLayout ll_news;
+    LinearLayout bg_bg;
     App app;
-
+    private TwinklingRefreshLayout refreshLayout;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class NewsFragment extends Fragment {
         dialog_view=null;*/
         try {
             bean.clear();
-            bean.addAll(ParseUnitls.News(app.getmSharedPreferences("top")).getResult().getData());
+            bean.addAll(ParseUnitls.News(app.mCache.getAsString("top")).getResult().getData());
             handler.sendEmptyMessage(1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,23 +90,37 @@ public class NewsFragment extends Fragment {
     }
 
     private void initData() {
-   /*     if (dialog_view == null)
-            dialog_view = View.inflate(getContext(), R.layout.dialog_refresh, null);
-        if (dialog == null)
-            dialog = new Dialog(getContext(), R.style.dialog);
-        final AnimationDrawable animationDrawable = (AnimationDrawable) dialog_view.findViewById(R.id.img).getBackground();
-        animationDrawable.start();
-        dialog.setContentView(dialog_view);
-        dialog.setCanceledOnTouchOutside(false);*/
+        listViewCompat.setAdapter(null);
+        listViewCompat.addFooterView(bg_bg);
         bean = new ArrayList<NewsBean.ResultBean.DataBean>();
         adapter = new NewsAdapter(bean, getContext());
         listViewCompat.setAdapter(adapter);
     }
 
     private void initView() {
-        ll_news = (LinearLayout) view.findViewById(R.id.ll_news);
+        refreshLayout= (TwinklingRefreshLayout) view.findViewById(R.id.refreshLayout);
+        View bgView = LayoutInflater.from(getContext()).inflate(R.layout.bg, null);
+        bg_bg= (LinearLayout) bgView.findViewById(R.id.bg_bg);
+        bg_bg.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, App.H / 30));
         textClock = (TextClock) view.findViewById(R.id.time);
         listViewCompat = (ListViewCompat) view.findViewById(R.id.lv);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                new Handler().postDelayed(() -> {
+                    refreshLayout.finishRefreshing();
+                    app.getData().News("top");
+                    netWork();
+                },2000);
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                new Handler().postDelayed(() -> refreshLayout.finishLoadmore(),2000);
+            }
+        });
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -118,5 +133,10 @@ public class NewsFragment extends Fragment {
             }
         };
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
 
+        listViewCompat.removeFooterView(bg_bg);
+    }
 }
